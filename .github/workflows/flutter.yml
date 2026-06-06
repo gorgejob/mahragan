@@ -39,4 +39,10 @@ jobs:
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
         run:
           shorebird release android --artifact apk
- 
+      
+      - name: uploadfdsdfs
+        uses: actions/upload-artifact@v4
+        with:
+          name: mahragan-app-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+      
