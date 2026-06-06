@@ -38,11 +38,17 @@ jobs:
         env:
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
         run:
-          rm -f shorebird.yaml
-          
-          echo "🚨 جاري ربط المشروع بحساب Shorebird الجديد..."
+          rm -f shorebird.yaml          
+
+      - name: Shorebird Previewfgdgdfgd / Patch
+        env:
+          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+        run:
           shorebird init 
-          
-          echo "🚀 جاري عمل أول Release أساسي للتطبيق على السيرفر..."
+ 
+      - name: Shorebird Preview dgfdg/ Patch
+        env:
+          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+        run:
           shorebird release android --artifact apk
  
