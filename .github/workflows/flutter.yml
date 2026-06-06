@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-     
   pull_request:
     branches:
       - main
@@ -14,35 +13,54 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. عمل Checkout للكود (تم التحديث لـ v4)
       - name: Checkout My Code 
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
+      # 2. إعداد الجافا (تم التحديث لـ v4)
       - name: Setup Java 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: 'temurin' # Use the Eclipse Temurin distribution
+          distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Flutter Version 3.24.5
+      # 3. عمل كاش للمكتبات والـ Gradle لتسريع الـ Build جداً
+      - name: Cache Pub and Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-pub-gradle-${{ hashFiles('**/pubspec.lock', '**/build.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-gradle-
+
+      # 4. تثبيت فلاتر مع تفعيل الكاش الخاص به
+      - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.44.1' # Use the required Flutter version
+          flutter-version: '3.44.1'
+          cache: true
 
+      # 5. تحميل مكاتب المشروع
       - name: Install Dependencies
         run: flutter pub get
 
+      # 6. إعداد أداة Shorebird
       - name: Setup Shorebird
         uses: shorebirdtech/setup-shorebird@v1
 
+      # 7. عمل الـ Patch للنسخة المحددة
       - name: Shorebird Preview dgfdg/ Patch
         env:
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
-        run:
-          shorebird patch --platforms=android --release-version=1.0.0+1
-      
-      - name: uploadfdsdfs
+        run: |
+          shorebird release android --artifact apk 
+
+      # 8. رفع ملف الـ APK عشان تقدر تحمله من الـ Artifacts
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: mahragan-app-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-      
