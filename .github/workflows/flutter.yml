@@ -34,18 +34,6 @@ jobs:
       - name: Setup Shorebird
         uses: shorebirdtech/setup-shorebird@v1
 
-      - name: Shorebird Preview / Patch
-        env:
-          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
-        run:
-          rm -f shorebird.yaml          
-
-      - name: Shorebird Previewfgdgdfgd / Patch
-        env:
-          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
-        run:
-          shorebird init 
- 
       - name: Shorebird Preview dgfdg/ Patch
         env:
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
