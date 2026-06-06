@@ -38,7 +38,7 @@ jobs:
         env:
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
         run:
-          shorebird release android --artifact apk
+          shorebird patch --platforms=android --release-version=1.0.0+1
       
       - name: uploadfdsdfs
         uses: actions/upload-artifact@v4
